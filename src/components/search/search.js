@@ -10,7 +10,6 @@ const Search = ({onSearchChange}) => {
     useEffect(() => {
         const fetchPlayers = async () => {
             try {
-                console.log(baseUrl);
                 const response = await fetch(baseUrl);
                 const data = await response.json();
                 const players_data = (data || []).filter(player => player.Status === 'Active');
@@ -44,12 +43,16 @@ const Search = ({onSearchChange}) => {
     }, []);
 
     const loadOptions = async (inputValue) => {
-        return { options: player_search };
+        // Filter player_search based on inputValue (case-insensitive)
+        const filtered = player_search.filter(player =>
+            player.value.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        return { options: filtered };
     };
 
     const handleOnChange = (searchData) => {
         setSearch(searchData);
-        onSearchChange(searchData);
+        onSearchChange(searchData, players); // Pass both searchData and the players list
     };
     return (
         <AsyncPaginate
