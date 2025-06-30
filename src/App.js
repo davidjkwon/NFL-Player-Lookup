@@ -14,6 +14,8 @@ function App() {
 
   return (
     <div className="container">
+      <h1 className="title">NFL Player Lookup</h1>
+      <p className="subtitle">Search for NFL players by name</p>  
       <Search onSearchChange={handleOnSearchChange}/>
       <PlayerProfile player={selectedPlayer} />
     </div>
